@@ -19,9 +19,11 @@ If you add LEDs to a different Neopixel you may want to one of more of the follo
 
 #### Consder adding a SPST on/off switch
 
-### Adafruit Neo Pixel of choice
+### Select desired Adafruit Neopixel
 
-Tested:
+Neopixel options: https://www.adafruit.com/category/168
+
+Tested w/ software and USB power:
 - NeoPixel Ring - 12 x 5050 RGBW LEDs w/ Integrated Drivers - Warm White - ~3000K https://www.adafruit.com/product/2851
 - TBD
 
