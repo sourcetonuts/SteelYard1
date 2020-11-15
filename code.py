@@ -4,39 +4,17 @@ import touchio
 import neopixel
 import adafruit_fancyled.adafruit_fancyled as fancy
 
-num_pixels = 30
+num_pixels = 12
 
 # pin usage: TRINKET: board.D4, GEMMA: board.D1
-strip = neopixel.NeoPixel( board.D1, num_pixels, brightness = 0.05, auto_write = False )
-#, pixel_order= neopixel.RGB
+strip = neopixel.NeoPixel(
+    board.D1,
+    num_pixels,
+    brightness = 0.05,
+    auto_write = False,
+    pixel_order= neopixel.RGBW )
 
 print( "Steelyard #1 Gemma M0" )
-
-# TouchMode
-# this class manages a single captouch pin and cycles through modes
-# on that pin up to provided lastmode
-#
-class TouchMode :
-    def __init__( self, inputMode, num = 2, name = None ) :
-        self.value = 0
-        self.lastmode = num - 1
-        self.input = inputMode
-        self.name = name or "mode"
-
-    def update( self ) :
-        wasoff = not self.input.value
-        time.sleep(0.005)  # 5ms delay for debounce
-        if not wasoff and self.input.value :
-            # just touched button
-            time.sleep(0.005)  # 5ms delay for debounce
-            if self.value >= self.lastmode :
-                self.value = 0
-            else :
-                self.value = self.value + 1
-            # debounce
-            time.sleep( 0.5 )
-            print( self.name + " {}".format( self.value ) )
-        return self.value
 
 class RainMan :
     def __init__( self, strip ) :
@@ -74,30 +52,51 @@ class RainMan :
 
 display = RainMan( strip )
 
-# OnOff pin usage: TRINKET: board.A0, GEMMA: board.A1
-# Mode pin usage: TRINKET: board. TBD ??, GEMMA: board.A2
+# TouchMode
+# this class manages a single captouch pin and cycles through modes
+# on that pin up to provided lastmode
+#
+class TouchMode :
+    def __init__( self, inputMode, num = 2, name = None ) :
+        self.value = 0
+        self.lastmode = num - 1
+        self.input = inputMode
+        self.name = name or "mode"
 
-inputOnOff = touchio.TouchIn( board.A1 )
-onoffMachine = TouchMode( inputOnOff, 2, "onoff" )
-inputMode = touchio.TouchIn( board.A2 )
-modeMachine = TouchMode( inputMode, 3 )
+    def update( self ) :
+        wasoff = not self.input.value
+        time.sleep(0.005)  # 5ms delay for debounce
+        if not wasoff and self.input.value :
+            # just touched button
+            time.sleep(0.005)  # 5ms delay for debounce
+            if self.value >= self.lastmode :
+                self.value = 0
+            else :
+                self.value = self.value + 1
+            # debounce
+            time.sleep( 0.5 )
+            print( self.name + " {}".format( self.value ) )
+        return self.value
+
+# Mode pin usage: TRINKET: board.A0, GEMMA: board.A1
+inputMode = touchio.TouchIn( board.A1 )
+modeMachine = TouchMode( inputMode, 2 )
+
+inputBrightness = touchio.TouchIn( board.A2 )
+brightnessMachine = TouchMode( inputBrightness, 5, "brightness" )
+brightnessMachine.value = 1
 
 offset = 0.001
-mode = 0
 
 # Loop Forever
 while True :
-    onoff = onoffMachine.update()
-    if onoff == 0 :
+    mode = modeMachine.update()
+    if mode == 0 :
         display.palette_cycle( offset )
         offset += 0.005 # 0.035 # this sets how quickly the rainbow changes (bigger is faster)
     else :
-        newmode = modeMachine.update()
-        if mode != newmode :
-            mode = newmode
+        # and if just off just off paint/fill w/ the center color
+        display.show_static( offset + 0.5 )
 
-        if mode == 0 :
-            # and if just off just off paint/fill w/ the center color
-            display.show_static( offset )
-        else :
-            display.show_static( offset )# Write your code here :-)
+    brightness = brightnessMachine.update()
+    strip.brightness = 0.01 + ( 0.2 * brightness )
