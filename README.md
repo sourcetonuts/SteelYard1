@@ -33,8 +33,8 @@ Tested w/ software and USB power:
 Get the 5V from USB, GND from the GND pin and use D4 for the Neopixel Data
 
 #### Wire button 1 to isolated capacitence material (CAPTOUCH)
-Button 2 has 3 modes: rainbow to selected color, display all LEDs in selected color and white leds. Touching toggles to the next mode in the sequence.
+Button 2 has 3 modes: rainbow to selected color, display all LEDs in selected color and white leds. Touching toggles to the next mode in the sequence. Wire to A0 (aka D1)
 
 #### Wire button 2 to isolated capacitence material (CAPTOUCH) 
 This is optional and if you leave it off you probably want to change the software to ignore it and have a default brightness.
-Button 2 supports 5 levels of brightness. Touching toggles to the next brighest and the back to the dim setting.
+Button 2 supports 5 levels of brightness. Touching toggles to the next brighest and the back to the dim setting. Wire to A3 (aka D3)
