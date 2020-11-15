@@ -11,10 +11,11 @@ https://www.adafruit.com/product/3500
 #### USB Cable for Power (good enough for 12 LEDs as-is)
 This is the simplest and w/ only 12 LEDS can power from a computer or any USB charger.
 If you add LEDs to a different Neopixel you may want to one of more of the following:
+- use a high power USB charger
 - change brightness in the software
 - bring in Power on Battery or USB pin rather than connector (read the docs for safety, etc)
 - Power Neopixl differently based on your choices
-- addi hardware: a barrel jack power input and switch
+- add hardware: a barrel jack power input and switch
 
 #### Consder adding a SPST on/off switch
 
