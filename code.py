@@ -90,13 +90,18 @@ offset = 0.001
 
 # Loop Forever
 while True :
+    brightness = brightnessMachine.update()
     mode = modeMachine.update()
     if mode == 0 :
         display.palette_cycle( offset )
         offset += 0.005 # 0.035 # this sets how quickly the rainbow changes (bigger is faster)
+        strip.brightness = 0.01 + ( 0.2 * brightness )
     else :
-        # and if just off just off paint/fill w/ the center color
-        display.show_static( offset + 0.5 )
-
-    brightness = brightnessMachine.update()
-    strip.brightness = 0.01 + ( 0.2 * brightness )
+        if brightness == 0 :
+            strip.brightness = .5
+            strip.fill([255,255,255,255])
+            strip.show()
+        else :
+            # and if just off just off paint/fill w/ the center color
+            display.show_static( offset + 0.5 )
+            strip.brightness = 0.2 * brightness
