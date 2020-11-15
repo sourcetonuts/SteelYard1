@@ -6,6 +6,8 @@ Provides the software function for the Lamp Building class
 ### Adafruit Trinket M0
 https://www.adafruit.com/product/3500
 
+#### Pinouts https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/pinouts
+
 #### USB Cable for Power (good enough for 12 LEDs as-is)
 This is the simplest and w/ only 12 LEDS can power from a computer or any USB charger.
 If you add LEDs to a different Neopixel you may want to one of more of the following:
@@ -14,12 +16,12 @@ If you add LEDs to a different Neopixel you may want to one of more of the follo
 - Power Neopixl differently based on your choices
 - addi hardware: a barrel jack power input and switch
 
-#### Consder adding a on/off switch
+#### Consder adding a SPST on/off switch
 
 ### Adafruit Neo Pixel of choice
 
 Tested:
-- NeoPixel Ring - 12 x 5050 RGBW LEDs w/ Integrated Drivers - Warm White - ~3000K
+- NeoPixel Ring - 12 x 5050 RGBW LEDs w/ Integrated Drivers - Warm White - ~3000K https://www.adafruit.com/product/2851
 - TBD
 
 ### Wiring
