@@ -8,13 +8,10 @@ num_pixels = 12
 
 # pin usage: TRINKET: board.D4, GEMMA: board.D1
 strip = neopixel.NeoPixel(
-    board.D1,
-    num_pixels,
-    brightness = 0.05,
-    auto_write = False,
-    pixel_order= neopixel.RGBW )
+    board.D4, num_pixels, brightness = 1,
+    auto_write = False, pixel_order= neopixel.RGBW )
 
-print( "Steelyard #1 Gemma M0" )
+print( "Steelyard #1 Trinket M0" )
 
 class RainMan :
     def __init__( self, strip ) :
@@ -79,10 +76,10 @@ class TouchMode :
         return self.value
 
 # Mode pin usage: TRINKET: board.A0, GEMMA: board.A1
-inputMode = touchio.TouchIn( board.A1 )
+inputMode = touchio.TouchIn( board.A0 )
 modeMachine = TouchMode( inputMode, 3 )
 
-inputBrightness = touchio.TouchIn( board.A2 )
+inputBrightness = touchio.TouchIn( board.A3 )
 brightnessMachine = TouchMode( inputBrightness, 5, "brightness" )
 brightnessMachine.value = 1
 
@@ -100,5 +97,9 @@ while True :
         # and if just off just off paint/fill w/ the center color
         display.show_static( offset + 0.5 )
     else :
-        strip.fill([255,255,255,255])
+        if strip.bpp == 4 :
+            strip.fill((255,255,255,255))
+        else :
+            strip.fill((255,255,255))
         strip.show()
+# end of program
