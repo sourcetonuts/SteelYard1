@@ -80,7 +80,7 @@ class TouchMode :
 
 # Mode pin usage: TRINKET: board.A0, GEMMA: board.A1
 inputMode = touchio.TouchIn( board.A1 )
-modeMachine = TouchMode( inputMode, 2 )
+modeMachine = TouchMode( inputMode, 3 )
 
 inputBrightness = touchio.TouchIn( board.A2 )
 brightnessMachine = TouchMode( inputBrightness, 5, "brightness" )
@@ -91,17 +91,14 @@ offset = 0.001
 # Loop Forever
 while True :
     brightness = brightnessMachine.update()
+    strip.brightness = 0.01 + ( 0.2 * brightness )
     mode = modeMachine.update()
     if mode == 0 :
         display.palette_cycle( offset )
         offset += 0.005 # 0.035 # this sets how quickly the rainbow changes (bigger is faster)
-        strip.brightness = 0.01 + ( 0.2 * brightness )
+    elif mode == 1 :
+        # and if just off just off paint/fill w/ the center color
+        display.show_static( offset + 0.5 )
     else :
-        if brightness == 0 :
-            strip.brightness = .5
-            strip.fill([255,255,255,255])
-            strip.show()
-        else :
-            # and if just off just off paint/fill w/ the center color
-            display.show_static( offset + 0.5 )
-            strip.brightness = 0.2 * brightness
+        strip.fill([255,255,255,255])
+        strip.show()
