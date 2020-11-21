@@ -20,7 +20,7 @@ class RainMan :
         # across the rainbow
         self.strip = strip
         self.lookup = []
-        self.size = strip.n * 2
+        self.size = strip.n
 
         grad = [ (0.0,0xFF0000), (0.33,0x00FF00), (0.67,0x0000FF), (1.0,0xFF0000)]
         palette = fancy.expand_gradient( grad, 20 )
@@ -29,6 +29,9 @@ class RainMan :
             rgb = fancy.palette_lookup( palette, coloff )
             color = rgb.pack()
             self.lookup.append( color )
+        # delete to free memory grad and palette we don't them any longer
+        del grad
+        del palette
 
     def color_selected( self, coloff ) :
         coloff = coloff % 1
