@@ -13,17 +13,17 @@ strip = neopixel.NeoPixel(
 
 print( "Steelyard #1 Trinket M0" )
 
-import RainMan
-display = RainMan.RainMan( strip )
+import rainman
+display = rainman.RainMan( strip )
 
-import TouchMode
+import touchmode
 
 # Mode pin usage: TRINKET: board.A0, GEMMA: board.A1
 inputMode = touchio.TouchIn( board.A0 )
-modeMachine = TouchMode.TouchMode( inputMode, 3 )
+modeMachine = touchmode.TouchMode( inputMode, 3 )
 
 inputBrightness = touchio.TouchIn( board.A3 )
-brightnessMachine = TouchMode.TouchMode( inputBrightness, 5, "brightness" )
+brightnessMachine = touchmode.TouchMode( inputBrightness, 5, "brightness" )
 brightnessMachine.value = 1
 
 offset = 0.001
