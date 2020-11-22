@@ -1,3 +1,5 @@
 [submodule "MyPy"]
 	path = MyPy
 	url = https://github.com/sourcetonuts/MyPy
+[submodule "DbConnector"]
+	branch = stable
