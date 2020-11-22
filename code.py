@@ -4,10 +4,9 @@ import neopixel
 
 print( "Steelyard #1 Trinket M0" )
 
-# make the strip and here a NeoPixel strip (can be dotstar, etc. w/ libraries)
-num_pixels = 12
+# make the strip and here a 12 LED NeoPixel strip (can be dotstar, etc. w/ libraries)
 strip = neopixel.NeoPixel(
-    board.D4, num_pixels, brightness = 1.0,
+    board.D4, 12, brightness = 1.0,
     auto_write = False, pixel_order= neopixel.RGBW )
 
 # Kenny's Display classs, It uses strip passed and libraries: adafruit_fancyled
