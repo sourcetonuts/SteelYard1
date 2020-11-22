@@ -1,32 +1,37 @@
-import time
 import board
 import touchio
 import neopixel
-import adafruit_fancyled.adafruit_fancyled as fancy
-
-num_pixels = 12
-
-# pin usage: TRINKET: board.D4, GEMMA: board.D1
-strip = neopixel.NeoPixel(
-    board.D4, num_pixels, brightness = 1,
-    auto_write = False, pixel_order= neopixel.RGBW )
 
 print( "Steelyard #1 Trinket M0" )
 
-import rainman
-display = rainman.RainMan( strip )
+# make the strip and here a NeoPixel strip (can be dotstar, etc. w/ libraries)
+num_pixels = 12
+strip = neopixel.NeoPixel(
+    board.D4, num_pixels, brightness = 1.0,
+    auto_write = False, pixel_order= neopixel.RGBW )
 
-import touchmode
+# Kenny's Display classs, It uses strip passed and libraries: adafruit_fancyled
+import MyPy.rainman
+display = MyPy.rainman.RainMan( strip )
 
-# Mode pin usage: TRINKET: board.A0, GEMMA: board.A1
+# Kenny's TouchMode class, It uses touchio passed and libraries: time
+import MyPy.touchmode
+
+# handles the application's Mode:
+# 0:rainbow select
+# 1:display selected color
+# 2:white light
 inputMode = touchio.TouchIn( board.A0 )
-modeMachine = touchmode.TouchMode( inputMode, 3 )
+modeMachine = MyPy.touchmode.TouchMode( inputMode, 3 )
 
+# handles the application's brightness:
+# 0: dimmest
+# 1-4: inceasing brightness
 inputBrightness = touchio.TouchIn( board.A3 )
-brightnessMachine = touchmode.TouchMode( inputBrightness, 5, "brightness" )
+brightnessMachine = MyPy.touchmode.TouchMode( inputBrightness, 5, "brightness" )
 brightnessMachine.value = 1
 
-offset = 0.001
+offset = 0
 
 # Loop Forever
 while True :
